@@ -29,3 +29,4 @@ dist/
 *.ckpt
 Thumbs.db
 .DS_Store
+AGENTS.md

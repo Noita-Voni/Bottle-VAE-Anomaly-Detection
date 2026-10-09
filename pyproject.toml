@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "bottle-vae-anomaly-detection"
 version = "0.1.0"
-description = "Phase 1 dataset validation for normal-only bottle anomaly detection"
+description = "Data preparation and a convolutional VAE for normal-only bottle anomaly detection"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["Pillow>=11,<13", "numpy>=2.1,<3", "torch>=2.6,<3", "matplotlib>=3.9,<4"]
 
 [project.scripts]
 bottle-data-check = "bottle_vae.data_check:main"

@@ -14,6 +14,8 @@ def check_dataset(root):
     """Return per-folder counts and issues; never change dataset files."""
     root = Path(root)
     counts, images, issues = {}, {}, []
+    # Check each required folder, count its PNG files, and report missing
+    # folders, empty folders, unexpected entries, or invalid PNG signatures.
     for relative in FOLDERS:
         folder = root / relative
         counts[relative] = None
@@ -40,6 +42,8 @@ def check_dataset(root):
         except OSError as error:
             issues.append(f"Cannot read {relative}: {error}")
 
+    # Check for unexpected folders or files: training allows only normal images,
+    # testing allows normal and defective images, and ground truth allows defect masks.
     for split, allowed in (
         ("train", {"good"}),
         ("test", {"good", *DEFECTS}),
@@ -73,7 +77,7 @@ def totals_from_counts(counts):
         "defective test": None if None in defects else sum(defects),
     }
 
-
+# Read command options, run image inspection and preparation, and save the results.
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-root", type=Path, default=Path("data/bottle"),
